@@ -1,3 +1,4 @@
+from enum import unique
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
@@ -33,6 +34,8 @@ def db_seed():
     db.session.add(bus2)
     db.session.commit()
     print('db seeded')
+
+    user1 = User(email = 'admin@desta', password = 'admin', role = 'admin')
 
 @app.route("/")
 def hello_world():
@@ -117,11 +120,24 @@ class Business(db.Model):
     website=db.Column(db.String(length=20))
     instagram= db.Column(db.String())
     tag = db.Column(db.String())
+    status = db.Column(db.String())
+
+class User(db.Model):
+    __tablename__ = 'users'
+    email = db.Column(db.String(length=50),nullable=False,unique=True, primary_key=True)
+    password = db.Column(db.String(length=(15)), nullable=False)
+    role = db.Column(db.String(), nullable=False)
 
 class BusinessSchema(ma.Schema):
     class Meta:
         fields = ('email','name','description', 'phone_no', 'password', 'website', 'instagram','tag')
 
+class UserSchema(ma.Schema):
+    class Meta:
+        fields = ('email', 'role', 'password')
 
+
+user_schema = UserSchema()
+users_schema = UserSchema(many = True)
 business_schema = BusinessSchema()
 businesses_schema = BusinessSchema(many=True)
