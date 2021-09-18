@@ -1,40 +1,41 @@
 <template>
-  <div>
-    <b-container>
-      <b-row class="justify-content-md-center mt-4" >
-        <b-col col md="12">  <!-- the higher the number the larger it is in width -->
+  
+  <div class="h-screen flex flex-wrap bg-gray-100 pt-4">
+    <div class="flex flex-col w-1/3 h-full px-2">
+      <div class="flex inline-block border-2 items-center justify-center rounded-lg h-1/2 w-full">
+        <img src="../assets/images/resto1.jpg" alt="No image uploaded" class="object-cover w-full h-full rounded-lg">
+      </div>
+      <div class="flex inline-block border-2 rounded-lg h-1/2 w-full">
+        <img src="../assets/images/resto2.jpg" alt="No image uploaded" class="object-cover w-full h-full rounded-lg">
+      </div>
+    </div>
+    <div class="flex w-2/3 h-full">
+      <div class="w-full">
+        <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg mb-4" >
+          <div class="flex flex-wrap items-end">
+            <div class="text-4xl font-serif font-bold tracking-wide">Business ABC</div>
+            <div class="border-2 rounded-full flex justify-center items-center mx-4 px-2 bg-purple-800 text-white">Restaurant</div>
+          </div>
+          <div class="text-lg font-serif font-bold mb-4">Montreal, QC</div>
+          <h4 class="mb-2">About us</h4>
+          <div class="text-base">We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!!</div>
+        </div>
 
-          <b-card class="h2 mb-2" header="Business ABC" header-bg-variant="white" >
-            <div class="h6 mb-2">Montreal, QC</div>
-            <h3 class="h5 mb-2">About us</h3>
-            <div class="h6">We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!!</div>
-          </b-card>
+        
+        <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg mb-4">
+          <div class="my-2">Website: <span class="text-base font-semibold"> businessabc@gmail.com</span></div>
+          <div class="my-2">Email: <span class="text-base font-semibold"> abc@gmail.com</span></div> 
+          <div class="">Phone: <span class="text-base font-semibold"> 437-580-5808</span></div>
+        </div>
 
-          <b-card>
-            <div class="row">
-              <div class="col-xs-6">Website: </div>
-              <div class="col-xd-6"> businessabc@gmail.com</div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">Email: </div>
-              <div class="col-xd-6"> abc@gmail.com</div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6">Phone: </div>
-              <div class="col-xd-6"> 437-580-5808</div>
-            </div>
+        <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg">
+          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa><fa icon="star" class="text-yellow-300"></fa></div>
+          <div class="text-base my-2 font-semibold">Google Review:</div>
+          <div class="text-base my-2 font-semibold">Display google maps here</div>
+        </div>
 
-          </b-card>
-
-          <b-card>
-            <div>Yelp Review:</div>
-            <div>Google Review:</div>
-            <div>Display google maps here</div>
-          </b-card>
-
-        </b-col>
-      </b-row>
-    </b-container>
+      </div>
+    </div>
   </div>
 </template>
 

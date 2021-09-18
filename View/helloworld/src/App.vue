@@ -2,12 +2,10 @@
 <template>
   <div id="app">
 <!--    Implement conditional rendering-->
-      if (lgoin) {
-    <Login />
-    }
-
-
-    <Profile/>
+      
+      <Login />
+      <Profile/>
+      <Registration/>
   </div>
 </template>
 
@@ -16,9 +14,10 @@
 <script>
   import Login from "./components/Login";
   import Profile from "./components/Profile";
+  import Registration from "./components/Registration";
   // import Registration from "./components/Registration";
   export default {
-    components: {Profile, Login},
+    components: {Profile, Login, Registration},
     data() {
       return {
       email: '', // When user inputs the email, it'll be stored here
@@ -40,3 +39,7 @@
     }
   }
 </script>
+
+<style lang="scss">
+@import "~@/assets/scss/vendors/bootstrap-vue/index";
+</style>
