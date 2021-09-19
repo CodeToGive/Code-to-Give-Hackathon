@@ -40,9 +40,13 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      // TODO make GET request to the backend to get the data here and open profile page?
-      this.$router.push({path: '/Profile', params: {email}})
-      // this.router.push({name: 'user', params: {id: '12345'}})
+      if (this.email === '123@gmail.com' && this.password === '123') {
+        // TODO make GET request to the backend to get the data here and open profile page
+        this.$router.push({path: '/Profile', params: {user: this.email}})
+        // this.router.push({name: 'user', params: {id: '12345'}})
+      } else {
+        alert("Password or and email incorrect")
+      }
     }
   },
 }
