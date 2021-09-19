@@ -1,13 +1,18 @@
 from enum import unique
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 import os
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' +os.path.join(basedir, 'desta.db')
+
+#Enable cross-origin requests
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -29,13 +34,15 @@ def db_drop():
 def db_seed():
     bus1 = Business(email = 'desta@org', name = 'desta', tag = 'salon', password = '1010')
     bus2 = Business(email = 'onyx@org', name = 'desta', tag = 'salon', password = '2020')
+    user1 = User(email = 'admin@desta', password = 'admin', role = 'admin')
     
     db.session.add(bus1) 
     db.session.add(bus2)
+    db.session.add(user1)
     db.session.commit()
     print('db seeded')
 
-    user1 = User(email = 'admin@desta', password = 'admin', role = 'admin')
+    
 
 @app.route("/")
 def hello_world():
@@ -45,21 +52,72 @@ def hello_world():
 def welcome():
     return "<h1>Welcome to Desta Businesses!</h1>"
 
-# create a business
-@app.route('/register', methods=['POST'])
-def register():
-    email = request.form['email']
+@app.route("/login", methods=['POST'])
+def signIn():
+    content = request.get_json()
+    user = content['details']
+    email = user['email']
+    password = user['password']
 
+    # email = request.args.get('email')
+    # password = request.args.get('password')
+    test = Business.query.filter_by(email=email).first()
+    
+    
+    if test:
+        print(test)
+        print(getattr(test, 'email')) 
+        if(password==getattr(test, 'password')):
+            return jsonify(message="Logged in"), 200
+        else:
+            return jsonify(message = "Wrong password"), 401
+    else:
+        return jsonify(message = "Email does not exist"), 401
+
+    
+
+    #print(test['email'])
+    #return jsonify("MESF")
+
+# create a business
+@app.route('/register_business', methods=['POST'])
+def register():
+    content = request.get_json()
+    business = content['business_details']
+    email = business['email']
+
+    print(business)
     test = Business.query.filter_by(email=email).first()
     if test:
-        return jsonify(message="Email already exists")
+        return jsonify(message="Email already exists"), 400
     else:
-        password = request.form['password']
-        name = request.form['name']
+        password = business['password']
+        name = business['name']
         business = Business(email=email, password=password, name=name)
         db.session.add(business)
         db.session.commit()
         return jsonify(message="Business created successfully"), 201
+
+#create a user
+@app.route('/create_user', methods=['POST'])
+def createUser():
+    content = request.get_json()
+    user = content['user_details']
+    email = user['email']
+    print(email)
+    print(content)
+    print('welcome home')
+    test = User.query.filter_by(email=email).first()
+    if test:
+       return jsonify(message = 'Email already exists')
+    else:
+        password = user['password']
+        role = user['role']
+        new_user = User(email = email, password=password, role = role)
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify(message="User created successfully"), 201
+    
 
 # view all businesses
 @app.route('/businesses', methods=['GET'])
@@ -68,9 +126,18 @@ def businesses():
     result = businesses_schema.dump(businesses_list)
     return jsonify(result)
 
+@app.route('/users', methods=['GET'])
+def users():
+    users_list = User.query.all()
+    result = users_schema.dump(users_list)
+    return jsonify(result)
+
+
 # view a business
-@app.route('/business_details/<string:email>', methods=['GET'])
-def business_details(email:str):
+@app.route('/business_details/', methods=['GET'])
+def business_details():
+    email = request.args.get('email')
+    print(email)
     business = Business.query.filter_by(email=email).first()
     if business:
         result = business_schema.dump(business)
@@ -121,10 +188,12 @@ class Business(db.Model):
     instagram= db.Column(db.String())
     tag = db.Column(db.String())
     status = db.Column(db.String())
+    address = db.Column(db.String())
+    postal_code = db.Column(db.String)
 
 class User(db.Model):
     __tablename__ = 'users'
-    email = db.Column(db.String(length=50),nullable=False,unique=True, primary_key=True)
+    email = db.Column(db.String(length=50),nullable=False, unique=True, primary_key=True)
     password = db.Column(db.String(length=(15)), nullable=False)
     role = db.Column(db.String(), nullable=False)
 
