@@ -5,6 +5,7 @@ import Registration from '../router/Registration'
 import Profile from '../router/Profile'
 import Login from '../router/Login'
 import PageNotFound from '../router/PageNotFound'
+import OwnerProfile from "./OwnerProfile";
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
     {
       path: '/login',
       component : Login
+    },
+    {
+      path: '/ownerprofile',
+      component : OwnerProfile
     },
     {
       path:'*',
