@@ -79,6 +79,10 @@ export default {
   },
   created: function () {},
   methods: {
+    openLoginPage() {
+      alert("Going to the login page!")
+      this.$router.push('/login')
+    },
     createBusiness: function(email, password, cpassword, business_name, phone_number, website_link, instagram_link) {
       if(password != cpassword){
         this.errorBusiness = "Passwords do not match"
