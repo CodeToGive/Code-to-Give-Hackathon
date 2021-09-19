@@ -1,5 +1,4 @@
 <template>
-
   <div class="h-screen flex flex-wrap bg-gray-100 pt-4">
     <div class="flex flex-col w-1/3 h-full px-2">
       <div class="flex inline-block border-2 items-center justify-center rounded-lg h-1/2 w-full">
@@ -13,23 +12,23 @@
       <div class="w-full">
         <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg mb-4" >
           <div class="flex flex-wrap items-end">
-            <div class="text-4xl font-serif font-bold tracking-wide">Business ABC</div>
-            <div class="border-2 rounded-full flex justify-center items-center mx-4 px-2 bg-purple-800 text-white">Restaurant</div>
+            <div class="text-4xl font-serif font-bold tracking-wide">{{ name }}</div>
+            <div class="border-2 rounded-full flex justify-center items-center mx-4 px-2 bg-purple-800 text-white">{{tag}}</div>
           </div>
-          <div class="text-lg font-serif font-bold mb-4">Montreal, QC</div>
+          <br>
+          <div class="text-lg font-serif font-bold mb-4">{{ location }}</div>
           <h4 class="mb-2">About us</h4>
-          <div class="text-base">We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!! We are a family based business in Montreal and we make the best jerk chicken in the world!!!</div>
+          <div class="text-base">{{ about }}</div>
         </div>
 
-
         <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg mb-4">
-          <div class="my-2">Website: <span class="text-base font-semibold"> businessabc@gmail.com</span></div>
-          <div class="my-2">Email: <span class="text-base font-semibold"> abc@gmail.com</span></div>
-          <div class="">Phone: <span class="text-base font-semibold"> 437-580-5808</span></div>
+          <div class="my-2">Website: <span class="text-base font-semibold"> {{ websiteLink }}</span></div>
+          <div class="my-2">Email: <span class="text-base font-semibold"> {{ email }}</span></div>
+          <div class="">Phone: <span class="text-base font-semibold"> {{ phone_number }}</span></div>
         </div>
 
         <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg">
-          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa><fa icon="star" class="text-yellow-300"></fa></div>
+          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa>{{ yelpRating }}<fa icon="star" class="text-yellow-300"></fa></div>
           <div class="text-base my-2 font-semibold">Google Review:</div>
           <div class="text-base my-2 font-semibold">Display google maps here</div>
         </div>
@@ -39,7 +38,42 @@
   </div>
 </template>
 
+<script>
+export default {
+  props:['user'],
+  data() {
+    return { //TODO this will be where we get the restaurant object and pass the data to to dynamically populate this page
+      name: 'Jerk Chicken Montreal',
+      tag: 'Restaurant',
+      location: 'Montreal, QC',
+      about: 'We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!',
+      websiteLink: 'https://jerkchicken.com',
+      email: 'bestjerkchicken@gmail.com',
+      phone_number: '4375808077',
+    }
+  },
+  created() {},
+  updated() {},
+  destroyed() {},
+  mounted() {
+    this.getYelpReview()
+  },
+  methods: {
+    getYelpReview() {
+      'use strict';
+      const yelp = require('yelp-fusion');
+      const client = yelp.client('aI-dPv8tJv60kFmhv6FNBA_DBlwuTIo6bEwh6yCLGiYTWK140yRSF2bbEfPcvJIzL-7XlHDyEhxdKgtU5dZeHUXmRTAAPAG64d0FJ4vxeiyxUP2jHADaQKl30XBGYXYx');
+      client.phoneSearch({
+        phone: '+14157492060'
+      }).then(response => {
+        console.log(response.jsonBody.businesses[0].name);
+      }).catch(e => {
+        console.log(e);
+      });
+    },
+    getGoogleReview() {
 
-<!--    "#" class="card-link">businessabc@gmail.com-->
-<!--    Yelp Reviews-->
-<!--    Google Reviews-->
+    }
+  }
+}
+</script>

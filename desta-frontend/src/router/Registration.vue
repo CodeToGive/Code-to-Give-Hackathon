@@ -20,28 +20,24 @@
                     <input type="text" v-model = 'business_name' name="business_name" class="border-2 p-2 placeholder-gray-400 text-gray-700 bg-white rounded text-sm  focus:outline-none focus:ring w-full" placeholder="Business name" style="transition: all 0.15s ease 0s;" />
 
                 </div>
-
                 <div class="relative w-full mb-3">
                     <input type="tel" v-model="phone_number" name="phone_number" class="border-2 p-2 placeholder-gray-400 text-gray-700 bg-white rounded text-sm  focus:outline-none focus:ring w-full" placeholder="Phone Number" style="transition: all 0.15s ease 0s;" />
 
                 </div>
-
                 <div class="relative w-full mb-3">
                     <input type="tel" name="website_link" v-model = "website_link" class="border-2 p-2 placeholder-gray-400 text-gray-700 bg-white rounded text-sm  focus:outline-none focus:ring w-full" placeholder="Website Link" style="transition: all 0.15s ease 0s;" />
 
                 </div>
-
                 <div class="relative w-full mb-3">
                     <input type="tel" name="instagram_link" v-model = "instagram_link" class="border-2 p-2 placeholder-gray-400 text-gray-700 bg-white rounded text-sm  focus:outline-none focus:ring w-full" placeholder="Instagram Link" style="transition: all 0.15s ease 0s;" />
 
                 </div>
-
                 <div class="text-center mt-6">
                     <input type="button" name="signin" @click="createBusiness(email, password, cpassword, business_name, phone_number, website_link, instagram_link)" id="signin" value="Sign In" class="p-3 rounded-full bg-blue-900 outline-none text-white shadow w-32 justify-center focus:bg-purple-700 hover:bg-purple-500">
                 </div>
                 <div class="flex flex-wrap mt-6">
                     <div class="w-1/2 text-left">
-                        <a href="#" class="text-blue-900 text-xl"><small>Already a member? Login</small></a>
+                        <a href="#" class="text-blue-900 text-xl" @click="openLoginPage"><small>Already a member? Login</small></a>
                     </div>
                     <!-- <div class="w-1/2 text-right">
                         <a href="#" class="text-blue-900 text-xl rounded-lg"><small>Sign In</small></a>
