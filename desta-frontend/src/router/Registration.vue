@@ -50,10 +50,6 @@
     </div>
   </div>
 
-
-
-
-      
   </div>
 </template>
 
@@ -72,9 +68,7 @@ var AXIOS = axios.create({
 })
 
 
-
 export default {
-
   name: 'business_registration',
   data() {
     return {
@@ -83,32 +77,32 @@ export default {
       message :""
     }
   },
-  created: function () {
-  
-  },
+  created: function () {},
   methods: {
+    openLoginPage() {
+      alert("Going to the login page!")
+      this.$router.push('/login')
+    },
     createBusiness: function(email, password, cpassword, business_name, phone_number, website_link, instagram_link) {
-    if(password != cpassword){
-      this.errorBusiness = "Passwords do not match"
-      this.message = ""
+      if(password != cpassword){
+        this.errorBusiness = "Passwords do not match"
+        this.message = ""
+      } else {
+        const business_details = {'email':email, 'password':password, "name":business_name,
+        'phone_no': phone_number, 'website':website_link , 'instagram':instagram_link};
+        AXIOS.post('/register_business', {business_details}, {}).then(response =>{
+              this.message = response.data.message
+              this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
+              alert("You have successfully created your account! now I will take you to the profile page.")
+              this.$router.push('/profile')
+          }).catch(e =>{
+              this.errorBusiness = e.data.message
+              console.log(e.data.message)
+              console.log(500)
+          })
+      }
     }
-    else{
 
-const business_details = {'email':email, 'password':password, "name":business_name, 
-      'phone_no': phone_number, 'website':website_link , 'instagram':instagram_link};
-
-      AXIOS.post('/register_business', {business_details}, {}).then(response =>{
-            this.message = response.data.message
-            this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
-        }).catch(e =>{
-            this.errorBusiness = e.data.message
-            console.log(e.data.message)
-            console.log(500)
-        })
-    }
-
-    }
-  
 
   }
 

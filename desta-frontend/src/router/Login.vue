@@ -20,7 +20,7 @@
                         <a href="#" class="text-blue-900 text-xl"><small>Forgot password?</small></a>
                     </div>
                     <div class="w-1/2 text-right">
-                        <a href="#" class="text-blue-900 text-xl rounded-lg"><small>Sign In</small></a>
+                        <a href="#" @click="signup" class="text-blue-900 text-xl rounded-lg"><small>Sign up</small></a>
                     </div>
                 </div>
             </form>
@@ -59,28 +59,30 @@ export default {
   },
   methods: {
     signIn: function(email, password){
-      
         if(email==''|| password==""){
           this.errorLog="Email/Password is empty"
           this.msgLog = ''
-}else{
- const details = {'email': email, 'password':password}
- AXIOS.post('/login', {details}, {}).then(response =>{
-            this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
-            this.msgLog="You are logged in!"
-            this.errorLog=''
-        }).catch(e =>{
-            this.errorLog = e.response.data.message
-            this.msgLog = ''
-            this.email='', this.password=''
-        })
-  
-}
-
-
+} else{
+         const details = {'email': email, 'password':password}
+         AXIOS.post('/login', {details}, {}).then(response =>{
+                    this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
+                    this.msgLog="You are logged in!"
+                    this.errorLog=''
+                }).catch(e =>{
+                    this.errorLog = e.response.data.message
+                    this.msgLog = ''
+                    this.email='', this.password=''
+                })
 
 }
 
+
+
+},
+    signup() {
+      alert("Going to the signup page!")
+      this.$router.push('/registration')
+    }
   }
 }
 
