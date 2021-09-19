@@ -28,24 +28,21 @@
             <span v-if="msgLog" style="color:green">Message: {{msgLog}} </span>
         </div>
     </div>
+    <div class="fixed bottom-0 left-0 w-full bg-black text-white">
+      <h4 class="text-center py-2">Desta Group3 © 2021</h4>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-
 var config = require('../../config')
-
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
-
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-
-
-
 
 export default {
   name: 'login_page',
@@ -62,7 +59,7 @@ export default {
         if(email==''|| password==""){
           this.errorLog="Email/Password is empty"
           this.msgLog = ''
-} else{
+        } else {
          const details = {'email': email, 'password':password}
          AXIOS.post('/login', {details}, {}).then(response =>{
                     this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
@@ -73,12 +70,8 @@ export default {
                     this.msgLog = ''
                     this.email='', this.password=''
                 })
-
-}
-
-
-
-},
+        }
+    },
     signup() {
       alert("Going to the signup page!")
       this.$router.push('/registration')

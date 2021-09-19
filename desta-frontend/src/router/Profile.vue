@@ -28,40 +28,35 @@
         </div>
 
         <div class="border-2 border-gray-300 p-4 shadow-sm rounded-lg">
-          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa>{{ yelpRating }}<fa icon="star" class="text-yellow-300"></fa></div>
+          <div class="text-base my-2 font-semibold">Yelp: <fa icon="star" class="text-yellow-300"></fa><fa icon="star" class="text-yellow-300"></fa></div>
+<!--          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa>{{ yelpRating }}<fa icon="star" class="text-yellow-300"></fa></div>-->
           <div class="text-base my-2 font-semibold">Google Review:</div>
-          <div class="text-base my-2 font-semibold">Display google maps here</div>
+          <AddGoogleMap />
         </div>
 
       </div>
     </div>
     <span v-if="errorProf" style="color:red">Error: {{errorProf}} </span>
-
   </div>
-
 </template>
 
 <script>
-
 import axios from 'axios'
-
+import AddGoogleMap from "../pages/AddGoogleMap";
 var config = require('../../config')
-
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
-
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-
-
 export default {
   name: "profile_page",
+  components: {AddGoogleMap},
   props:['user'],
   data() {
-    return { //TODO this will be where we get the restaurant object and pass the data to to dynamically populate this page
+    return { //TODO this will be where we get the restaurant object and pass the data to dynamically populate this page
       name: '',
       tag: '',
       location: '',
@@ -70,7 +65,7 @@ export default {
       email: '',
       phone_number: '',
       errorProf:''
-      
+
     }
   },
   created() {
@@ -79,9 +74,8 @@ export default {
        params:{
         email: this.email
        }
-       
-     })
-      .then(response => {
+
+     }).then(response => {
         console.log(2+5)
         console.log("I am here")
         // JSON responses are automatically parsed.
@@ -93,10 +87,8 @@ export default {
         this.websiteLink = response.data.website
         //this.email = response.data.email
         this.phone_number = response.data.phone_number
-
-
       })
-      .catch(e => { 
+      .catch(e => {
         console.log(e.response.data.message)
         errorProf = e.response.data.message
       })
