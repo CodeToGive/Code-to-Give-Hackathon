@@ -1,5 +1,5 @@
 from enum import unique
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 import os
@@ -52,6 +52,33 @@ def hello_world():
 def welcome():
     return "<h1>Welcome to Desta Businesses!</h1>"
 
+@app.route("/login", methods=['POST'])
+def signIn():
+    content = request.get_json()
+    user = content['details']
+    email = user['email']
+    password = user['password']
+
+    # email = request.args.get('email')
+    # password = request.args.get('password')
+    test = Business.query.filter_by(email=email).first()
+    
+    
+    if test:
+        print(test)
+        print(getattr(test, 'email')) 
+        if(password==getattr(test, 'password')):
+            return jsonify(message="Logged in"), 200
+        else:
+            return jsonify(message = "Wrong password"), 401
+    else:
+        return jsonify(message = "Email does not exist"), 401
+
+    
+
+    #print(test['email'])
+    #return jsonify("MESF")
+
 # create a business
 @app.route('/register_business', methods=['POST'])
 def register():
@@ -59,9 +86,10 @@ def register():
     business = content['business_details']
     email = business['email']
 
+    print(business)
     test = Business.query.filter_by(email=email).first()
     if test:
-        return jsonify(message="Email already exists")
+        return jsonify(message="Email already exists"), 400
     else:
         password = business['password']
         name = business['name']
@@ -106,8 +134,10 @@ def users():
 
 
 # view a business
-@app.route('/business_details/<string:email>', methods=['GET'])
-def business_details(email:str):
+@app.route('/business_details/', methods=['GET'])
+def business_details():
+    email = request.args.get('email')
+    print(email)
     business = Business.query.filter_by(email=email).first()
     if business:
         result = business_schema.dump(business)
@@ -158,6 +188,8 @@ class Business(db.Model):
     instagram= db.Column(db.String())
     tag = db.Column(db.String())
     status = db.Column(db.String())
+    address = db.Column(db.String())
+    postal_code = db.Column(db.String)
 
 class User(db.Model):
     __tablename__ = 'users'

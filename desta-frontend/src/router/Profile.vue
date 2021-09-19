@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-wrap bg-gray-100 pt-4">
+  <div id="profile_page" class="h-screen flex flex-wrap bg-gray-100 pt-4">
     <div class="flex flex-col w-1/3 h-full px-2">
       <div class="flex inline-block border-2 items-center justify-center rounded-lg h-1/2 w-full">
         <img src="../../build/images/resto1.jpg" alt="No image uploaded" class="object-cover w-full h-full rounded-lg">
@@ -35,24 +35,85 @@
 
       </div>
     </div>
+    <span v-if="errorProf" style="color:red">Error: {{errorProf}} </span>
+
   </div>
+
 </template>
 
 <script>
+
+import axios from 'axios'
+
+var config = require('../../config')
+
+var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
+
+
+
 export default {
+  name: "profile_page",
   props:['user'],
   data() {
     return { //TODO this will be where we get the restaurant object and pass the data to to dynamically populate this page
-      name: 'Jerk Chicken Montreal',
-      tag: 'Restaurant',
-      location: 'Montreal, QC',
-      about: 'We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!',
-      websiteLink: 'https://jerkchicken.com',
-      email: 'bestjerkchicken@gmail.com',
-      phone_number: '4375808077',
+      name: '',
+      tag: '',
+      location: '',
+      about: '',
+      websiteLink: '',
+      email: '',
+      phone_number: '',
+      errorProf:''
+      
     }
   },
-  created() {},
+  created() {
+      this.email = 'desta@org'
+     AXIOS.get('/business_details/',{
+       params:{
+        email: this.email
+       }
+       
+     })
+      .then(response => {
+        console.log(2+5)
+        console.log("I am here")
+        // JSON responses are automatically parsed.
+        console.log(response.data.name)
+        this.name = response.data.name,
+        this.tag = response.data.tag,
+        this.location = response.data.address + " " + response.data.postal_code
+        this.about = response.data.description
+        this.websiteLink = response.data.website
+        //this.email = response.data.email
+        this.phone_number = response.data.phone_number
+
+
+      })
+      .catch(e => { 
+        console.log(e.response.data.message)
+        errorProf = e.response.data.message
+      })
+
+    // name: 'Jerk Chicken Montreal',
+    //   tag: 'Restaurant',
+    //   location: 'Montreal, QC',
+    //   about: 'We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!',
+    //   websiteLink: 'https://jerkchicken.com',
+    //   email: 'bestjerkchicken@gmail.com',
+    //   phone_number: '4375808077',
+
+
+
+
+
+  },
   updated() {},
   destroyed() {},
   mounted() {

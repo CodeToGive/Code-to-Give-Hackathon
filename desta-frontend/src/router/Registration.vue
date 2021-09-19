@@ -73,15 +73,13 @@ var AXIOS = axios.create({
 
 
 
-
-
-
 export default {
 
   name: 'business_registration',
   data() {
     return {
-      errorBusiness: '',
+      email:"",
+      errorBusiness: 'We are here',
       message :""
     }
   },
@@ -90,8 +88,9 @@ export default {
   },
   methods: {
     createBusiness: function(email, password, cpassword, business_name, phone_number, website_link, instagram_link) {
-    if(password!=cpassword){
+    if(password != cpassword){
       this.errorBusiness = "Passwords do not match"
+      this.message = ""
     }
     else{
 
@@ -102,7 +101,9 @@ const business_details = {'email':email, 'password':password, "name":business_na
             this.message = response.data.message
             this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
         }).catch(e =>{
-            this.errorBusiness = e.response.data.message
+            this.errorBusiness = e.data.message
+            console.log(e.data.message)
+            console.log(500)
         })
     }
 
@@ -110,9 +111,6 @@ const business_details = {'email':email, 'password':password, "name":business_na
   
 
   }
-
-
-
 
 
 }
