@@ -15,3 +15,5 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+/desta-frontend/npm-shrinkwrap.json
+/desta-frontend/package.json
