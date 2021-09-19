@@ -14,7 +14,9 @@
                             <div class="two fields">
                                 <div class="field">
                                     <select v-model="type">
-                                        <option value="restaurant"> Restaurant </option>
+                                        <option value="restaurant"> Restaurants </option>
+                                        <option value="hair_care"> Hair Care </option>
+                                        <option value="clothing_store"> Clothing Stores </option>
                                     </select>
 
                                 </div>
@@ -31,7 +33,7 @@
                     <button class="ui button" @click="exploreButtonClicked">Explore</button>
                     </div>
                 </form>
-                <div class="ui segment" style="max-height:350px;overflow:auto"> 
+                <div class="ui segment" style="max-height:500px;overflow:auto"> 
                     <div class="ui divided items" >
                     <div class="item" v-for="(place, index) in places" :key="place.place_id" @click="showInfoWindow(index)" 
                     :class="{'active' : activeIndex === index}"
@@ -39,6 +41,7 @@
                         <div class="content">
                             <div class="header">{{place.name}}</div>
                             <div class="meta">{{place.vicinity}}</div>
+
                         </div>
                     </div>
                     </div>
@@ -46,11 +49,13 @@
         </div>
         <div class="ten wide column" ref="map">    
         </div>
-    </div>
+</div>
+    
 </template>>
 
 <script>
 import axios from 'axios'
+import { blackOwned } from './blackOwned'
 export default {
     data() {
         return {
@@ -64,7 +69,8 @@ export default {
             radius : "",
             places : [],
             markers : [],
-            activeIndex : -1
+            activeIndex : -1,
+            blackOwnedBusinesses : []
         };  
     },
     mounted() { //called when the DOM is ready
@@ -138,6 +144,15 @@ export default {
 
                 axios.get(URL).then(response => {
                     this.places = response.data.results;
+                    let temp = [];
+                    //filter only black owned business
+                    for(let i = 0; i < this.places.length; i++) {
+                        if(blackOwned.has(this.places[i].place_id)) {
+                            console.log(`${this.places[i].name} is Black Owned`);
+                            temp.push(this.places[i]);
+                        }
+                    }
+                    this.places = temp;
                     this.showPlacesOnMap();
                 }).catch(error => {
                     this.error = error.message;
@@ -177,8 +192,7 @@ export default {
                                     this.error = response.data.error_message;
                                 } else {
                                     const place = response.data.result;
-                                    console.log(place);
-                                    
+            
                                     infoWindow.setContent(`<div class="ui header">${place.name}</div>
                                         ${place.formatted_address} <br/>
                                         ${place.formatted_phone_number} <br/>
