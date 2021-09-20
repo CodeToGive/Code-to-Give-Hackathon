@@ -6,3 +6,7 @@ Build a technical prototype that helps DESTA connect black-owned businesses and 
 
 ## Participants
 Ben Mwaniki - ben12mwaniki@gmail.com
+Ritika Garg - gargritika2596@gmail.com
+Brian Kirotich - brian@kiroti.ch
+Shakiru - adeshina.shakiru@yahoo.com
+Marc WU - wumarckun@gmail.com
