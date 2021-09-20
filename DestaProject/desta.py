@@ -42,27 +42,19 @@ def db_seed():
     db.session.commit()
     print('db seeded')
 
-    
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World! A good time to be alive</p>"
 
 @app.route("/home")
 def welcome():
     return "<h1>Welcome to Desta Businesses!</h1>"
 
+# login user
 @app.route("/login", methods=['POST'])
 def signIn():
     content = request.get_json()
     user = content['details']
     email = user['email']
     password = user['password']
-
-    # email = request.args.get('email')
-    # password = request.args.get('password')
     test = Business.query.filter_by(email=email).first()
-    
     
     if test:
         print(test)
@@ -74,10 +66,7 @@ def signIn():
     else:
         return jsonify(message = "Email does not exist"), 401
 
-    
 
-    #print(test['email'])
-    #return jsonify("MESF")
 
 # create a business
 @app.route('/register_business', methods=['POST'])
@@ -86,7 +75,6 @@ def register():
     business = content['business_details']
     email = business['email']
 
-    print(business)
     test = Business.query.filter_by(email=email).first()
     if test:
         return jsonify(message="Email already exists"), 400
@@ -104,9 +92,7 @@ def createUser():
     content = request.get_json()
     user = content['user_details']
     email = user['email']
-    print(email)
-    print(content)
-    print('welcome home')
+    
     test = User.query.filter_by(email=email).first()
     if test:
        return jsonify(message = 'Email already exists')
