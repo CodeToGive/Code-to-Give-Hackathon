@@ -5,8 +5,8 @@ For 85 years, Morgan Stanley has been committed to serving communities around th
 Build a technical prototype that helps DESTA connect black-owned businesses and entrepreneurs to each other and/or to new and existing community clients
 
 ## Participants
-Ben Mwaniki - ben12mwaniki@gmail.com
-Ritika Garg - gargritika2596@gmail.com
-Brian Kirotich - brian@kiroti.ch
-Shakiru - adeshina.shakiru@yahoo.com
+Ben Mwaniki - ben12mwaniki@gmail.com <br />
+Ritika Garg - gargritika2596@gmail.com <br />
+Brian Kirotich - brian@kiroti.ch <br />
+Shakiru - adeshina.shakiru@yahoo.com <br />
 Marc WU - wumarckun@gmail.com
