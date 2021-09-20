@@ -32,7 +32,6 @@
           <div class="text-base my-2 font-semibold">Yelp: <fa icon="star" class="text-yellow-300"></fa><fa icon="star" class="text-yellow-300"></fa></div>
 <!--          <div class="text-base my-2 font-semibold">Yelp <fa icon="star" class="text-yellow-300"></fa>{{ yelpRating }}<fa icon="star" class="text-yellow-300"></fa></div>-->
           <div class="text-base my-2 font-semibold">Google Review:</div>
-          <AddGoogleMap />
         </div>
 
       </div>
@@ -43,7 +42,6 @@
 
 <script>
 import axios from 'axios'
-import AddGoogleMap from "../pages/AddGoogleMap";
 var config = require('../../config')
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
@@ -54,7 +52,7 @@ var AXIOS = axios.create({
 
 export default {
   name: "profile_page",
-  components: {AddGoogleMap},
+  components: {},
   props:['user'],
   data() {
     return { //TODO this will be where we get the restaurant object and pass the data to dynamically populate this page
@@ -93,19 +91,6 @@ export default {
         console.log(e.response.data.message)
         errorProf = e.response.data.message
       })
-
-    // name: 'Jerk Chicken Montreal',
-    //   tag: 'Restaurant',
-    //   location: 'Montreal, QC',
-    //   about: 'We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!We are family run business and we make the best chicken in the world! We are family run business and we make the best chicken in the world!',
-    //   websiteLink: 'https://jerkchicken.com',
-    //   email: 'bestjerkchicken@gmail.com',
-    //   phone_number: '4375808077',
-
-
-
-
-
   },
   updated() {},
   destroyed() {},

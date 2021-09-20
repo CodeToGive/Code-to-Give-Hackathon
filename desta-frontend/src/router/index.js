@@ -6,6 +6,7 @@ import Profile from '../router/Profile'
 import Login from '../router/Login'
 import PageNotFound from '../router/PageNotFound'
 import OwnerProfile from "./OwnerProfile";
+import EditProfile from './EditProfile'
 
 Vue.use(Router)
 
@@ -30,6 +31,10 @@ export default new Router({
     {
       path: '/ownerprofile',
       component : OwnerProfile
+    },
+    {
+      path: '/editProfile',
+      component: EditProfile
     },
     {
       path:'*',
