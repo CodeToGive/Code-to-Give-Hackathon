@@ -160,11 +160,11 @@ export default {
     },
     mounted() { //called when the DOM is ready
         //instantiate autocomplete object
-        // const map = new google.maps.Map(this.$refs["map"], {
-        //   zoom: 10,
-        //   center: new google.maps.LatLng(45.508888, -73.561668),
-        //   mapTypeId: google.maps.MapTypeId.ROADMAP
-        // });
+        const map = new google.maps.Map(this.$refs["map"], {
+          zoom: 10,
+          center: new google.maps.LatLng(45.508888, -73.561668),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
         let autocomplete = new google.maps.places.Autocomplete(
             this.$refs["autocomplete"],

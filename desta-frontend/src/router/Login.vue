@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="fixed bottom-0 left-0 w-full bg-black text-white">
-      <h4 class="text-center py-2">Desta Group3 © 2021</h4>
+      <h4 class="text-center py-2">Desta Group 3 © 2021</h4>
     </div>
   </div>
 </template>
