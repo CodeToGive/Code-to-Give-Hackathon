@@ -41,6 +41,8 @@
                 <div class="field">
                   <select v-model="type">
                     <option value="restaurant"> Restaurant </option>
+                    <option value="hair_care"> Hair Care </option>
+                    <option value="clothing_store"> Clothing Stores </option>
                   </select>
 
                 </div>
@@ -142,6 +144,7 @@
 
 <script>
 import axios from 'axios'
+import { blackOwned } from './blackOwned'
 export default {
     data() {
         return {
@@ -159,12 +162,11 @@ export default {
         };
     },
     mounted() { //called when the DOM is ready
-        //instantiate autocomplete object
-        // const map = new google.maps.Map(this.$refs["map"], {
-        //   zoom: 10,
-        //   center: new google.maps.LatLng(45.508888, -73.561668),
-        //   mapTypeId: google.maps.MapTypeId.ROADMAP
-        // });
+        const map = new google.maps.Map(this.$refs["map"], {
+          zoom: 10,
+          center: new google.maps.LatLng(45.508888, -73.561668),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
         let autocomplete = new google.maps.places.Autocomplete(
             this.$refs["autocomplete"],
@@ -235,6 +237,13 @@ export default {
 
                 axios.get(URL).then(response => {
                     this.places = response.data.results;
+                    let temp = []
+                    for(let i = 0; i < this.places.length; i++) {
+                        if(blackOwned.has(this.places[i].place_id)) {
+                          temp.push(this.places[i]);
+                        }
+                    }
+                    this.places = temp;
                     this.showPlacesOnMap();
                 }).catch(error => {
                     this.error = error.message;
