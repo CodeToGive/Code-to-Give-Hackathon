@@ -43,7 +43,7 @@ def db_seed():
     print('db seeded')
 
 
-@app.route("/home")
+@app.route("/")
 def welcome():
     return "<h1>Welcome to Desta Businesses!</h1>"
 

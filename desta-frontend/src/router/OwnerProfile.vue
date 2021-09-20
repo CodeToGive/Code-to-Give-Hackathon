@@ -73,7 +73,7 @@ export default {
     }
   },
   created() {
-      this.email = 'desta@org'
+      this.email = this.user
      AXIOS.get('/business_details/',{
        params:{
         email: this.email
@@ -84,8 +84,8 @@ export default {
         console.log(response.data.name)
         this.name = response.data.name,
         this.tag = response.data.tag,
-        this.location = response.data.address + " " + response.data.postal_code
-        this.about = response.data.description
+        this.location = "3425 Avenue Emard" + " " + "H34 2B1"
+        this.about = "A business that serves your community and meets your needs"
         this.websiteLink = response.data.website
         //this.email = response.data.email
         this.phone_number = response.data.phone_number

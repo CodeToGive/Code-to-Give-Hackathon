@@ -26,11 +26,12 @@ export default new Router({
     },
     {
       path: '/login',
-      component : Login
+      component : Login,
+      name: 'login_page'
     },
-    {
-      path: '/ownerprofile',
-      component : OwnerProfile
+    
+     { path: '/ownerprofile' , name: "ownerprofile", component: OwnerProfile, props: true
+      
     },
     {
       path: '/editProfile',

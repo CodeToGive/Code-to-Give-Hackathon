@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       email:"",
-      errorBusiness: 'We are here',
+      errorBusiness: '',
       message :""
     }
   },
@@ -83,8 +83,9 @@ export default {
       this.$router.push('/login')
     },
     createBusiness: function(email, password, cpassword, business_name, phone_number, website_link, instagram_link) {
-      if(password != cpassword){
-        this.errorBusiness = "Passwords do not match"
+     const user = email
+      if(password != cpassword|| business_name=='' || email=='' || email ==''){
+        this.errorBusiness = "Missing/Wrong input. Please try again"
         this.message = ""
       } else {
         const business_details = {'email':email, 'password':password, "name":business_name,
@@ -93,11 +94,11 @@ export default {
               this.message = response.data.message
               this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
               alert("You have successfully created your account! now I will take you to the profile page.")
-              this.$router.push('/profile')
+              
+              
+            this.$router.push('/login')
           }).catch(e =>{
               this.errorBusiness = e.data.message
-              console.log(e.data.message)
-              console.log(500)
           })
       }
     }

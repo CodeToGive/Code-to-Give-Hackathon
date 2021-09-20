@@ -34,7 +34,7 @@
 
                 <div class="md:col-span-3">
                   <label for="address">Business Description</label>
-                  <textarea v-model='tag' type="text" rows="5" cols="50"class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="Write a short description of your business" />
+                  <textarea v-model='tag' type="text" rows="5" cols="50" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="Write a short description of your business" />
                 </div>
 
                 <div class="md:col-span-3">

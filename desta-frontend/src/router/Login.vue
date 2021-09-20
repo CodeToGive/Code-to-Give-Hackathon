@@ -61,10 +61,18 @@ export default {
           this.msgLog = ''
         } else {
          const details = {'email': email, 'password':password}
+         const user = email
          AXIOS.post('/login', {details}, {}).then(response =>{
                     this.email='', this.password='', this.cpassword='', this.business_name='', this.phone_number='', this.website_link='', this.instagram_link=''
                     this.msgLog="You are logged in!"
                     this.errorLog=''
+
+                    //this.$router.push('/ownerprofile')
+                     
+                  //  {path: "/foo", name:"foo", component: FooComponent,  props: true}
+
+                    this.$router.push({ name: 'ownerprofile', params: {user }})
+
                 }).catch(e =>{
                     this.errorLog = e.response.data.message
                     this.msgLog = ''
